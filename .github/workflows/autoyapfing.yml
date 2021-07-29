@@ -11,19 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v2.3.4
         with:
           repository: ${{ github.repository }}
           token: ${{ github.token }}
 
       # https://github.com/diegovalenzuelaiturra/yapf-action
-      - name: YAPF Formatter
+      - name: Setup YAPF Formatter
         uses: diegovalenzuelaiturra/yapf-action@master
         with:
           args: "--style='{based_on_style: google, indent_width: 4, column_limit: 120}' --recursive --in-place --parallel ."
 
-      - name: action metadata
+      - name: Action metadata
         run: |
           echo -e "action     : ${{ github.action }}"
           echo -e "actor      : ${{ github.actor }}"
@@ -36,7 +36,7 @@ jobs:
           echo -e "workflow   : ${{ github.workflow }}"
           echo -e "workspace  : ${{ github.workspace }}"
 
-      - name: config github
+      - name: Config github-actions
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
