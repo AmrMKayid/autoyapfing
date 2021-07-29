@@ -1,4 +1,4 @@
 print('test')
 
 if True:
-    print("Test")
+    print("Test2")
