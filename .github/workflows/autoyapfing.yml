@@ -4,6 +4,12 @@ on:
   push:
     paths:
       - "**.py"
+  pull_request:
+    paths:
+      - "**.py"
+  workflow_dispatch:
+    paths:
+      - "**.py"
 
 jobs:
   build:
