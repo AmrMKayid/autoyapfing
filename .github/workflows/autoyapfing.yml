@@ -1,4 +1,4 @@
-name: YAPF Formatter
+name: Autoyapfing
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    name: YAPF Formatter
+    name: Autoyapfing
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +21,7 @@ jobs:
       - name: YAPF Formatter
         uses: diegovalenzuelaiturra/yapf-action@master
         with:
-          args: . --verbose --recursive --in-place --parallel
+          args: "--style='{based_on_style: google, indent_width: 4, column_limit: 120}' --recursive --in-place --parallel ."
 
       - name: action metadata
         run: |
@@ -41,16 +41,8 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
 
-      - name: add changes
+      - name: Yapfing
         run: |
           git add .
-
-      - name: commit changes
-        run: |
-          git commit -m "Automation: YAPF Formatter" --all | exit 0
-
-      # NOTE : only push changes when the source branch is being pushed to master (target branch)
-      - name: push changes
-        if: github.ref == 'refs/heads/master'
-        run: |
+          git commit -m "Autoyapfing" --all
           git push
