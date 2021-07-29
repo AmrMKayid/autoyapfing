@@ -1,7 +1,1 @@
-print(
-
-
-    'test'
-
-
-)
+print('test')
