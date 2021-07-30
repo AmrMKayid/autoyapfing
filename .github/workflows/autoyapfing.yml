@@ -58,4 +58,4 @@ jobs:
 
       - name: Yapfing
         run: |
-          git diff-index --quiet HEAD || git commit -m "Autoyapfing" && git push
+          git diff-index --quiet HEAD || git commit -am "Autoyapfing" && git push
