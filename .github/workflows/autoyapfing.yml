@@ -57,11 +57,11 @@ jobs:
 
       - name: Yapfing
         run: |
-          if git status --porcelain; then
-              echo "No changes"
-          else
-              echo "Autoyapfing files"
+          if [ -n "$(git status --porcelain)" ]; then
+              echo "Autoyapfing files";
               git add . --all
               git commit -m "Autoyapfing"
               git push
+          else
+              echo "No changes";
           fi
