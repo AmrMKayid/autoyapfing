@@ -1,7 +1,6 @@
 name: Autoyapfing
 
 on:
-  push:
   pull_request:
   workflow_dispatch:
     paths:
@@ -18,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
         with:
           repository: ${{ github.repository }}
           token: ${{ github.token }}
@@ -36,7 +35,7 @@ jobs:
       - name: Setup YAPF Formatter
         run: |
           pip install yapf==0.29.0
-          yapf -rpi --style='{based_on_style: google, indent_width: 4, column_limit: 120}' .
+          yapf -rpi --verbose --style='{based_on_style: google, indent_width: 4, column_limit: 120}' .
 
       - name: Action metadata
         run: |
@@ -58,4 +57,11 @@ jobs:
 
       - name: Yapfing
         run: |
-          git diff-index --quiet HEAD || git commit -am "Autoyapfing" && git push
+          if git status --porcelain; then
+              echo "No changes"
+          else
+              echo "Autoyapfing files"
+              git add . --all
+              git commit -m "Autoyapfing"
+              git push
+          fi
